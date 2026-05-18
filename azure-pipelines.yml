@@ -7,20 +7,19 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
 steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+
 - script: |
-    sudo apt-get remove -y nodejs
-    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-
     node -v
-    npm -v
+    npm install
+  displayName: 'Install packages'
 
-    npm install --legacy-peer-deps
-
+- script: |
     export NODE_OPTIONS=--openssl-legacy-provider
-
-    npm run build
-  displayName: 'Install Node 16 and Build React App'
+    CI=false npm run build
+  displayName: 'Build React App'
