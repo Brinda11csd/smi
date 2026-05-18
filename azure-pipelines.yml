@@ -7,15 +7,14 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
-
 - script: |
+    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    node -v
     npm install
+    export NODE_OPTIONS=--openssl-legacy-provider
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'Install Node 16 and Build'
