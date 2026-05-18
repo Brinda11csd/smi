@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import 'emoji-mart/css/emoji-mart.css';
 import Header from './components/Navbar/Header';
-import PrivateRoute from './Routes/PrivateRoute';
 import Profile from './components/User/Profile';
 import UpdateProfile from './components/User/Update/UpdateProfile';
 import UpdatePassword from './components/User/Update/UpdatePassword';
@@ -61,9 +60,7 @@ function App() {
       <Suspense fallback={<SpinLoader />} >
         <Routes>
           <Route path="/" element={
-            <PrivateRoute>
               <Home />
-            </PrivateRoute>
           } />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
@@ -71,37 +68,27 @@ function App() {
           <Route path="/password/reset/:token" element={<ResetPassword />} />
 
           <Route path="/:username" element={
-            <PrivateRoute>
               <Profile />
-            </PrivateRoute>
           } />
           <Route path="/accounts/edit" element={
-            <PrivateRoute>
               <Update activeTab={0}>
                 <UpdateProfile />
               </Update>
-            </PrivateRoute>
           }
           />
           <Route path="/accounts/password/change" element={
-            <PrivateRoute>
               <Update activeTab={1}>
                 <UpdatePassword />
               </Update>
-            </PrivateRoute>
           }
           />
 
           <Route path="/direct/inbox" element={
-            <PrivateRoute>
               <Inbox />
-            </PrivateRoute>
           } />
 
           <Route path="/direct/t/:chatId/:userId" element={
-            <PrivateRoute>
               <Inbox />
-            </PrivateRoute>
           } />
 
           <Route path="*" element={<NotFound />} />
