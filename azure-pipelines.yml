@@ -7,17 +7,21 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-22.04'
 
 steps:
-- task: NodeTool@0
+- task: UseNode@1
   inputs:
-    versionSpec: '16.x'
+    version: '16.x'
+  displayName: 'Use Node.js 16'
 
 - script: |
     node -v
-    npm install
-  displayName: 'Install packages'
+    npm -v
+  displayName: 'Check Versions'
+
+- script: npm install --legacy-peer-deps
+  displayName: 'Install Dependencies'
 
 - script: |
     export NODE_OPTIONS=--openssl-legacy-provider
