@@ -11,10 +11,16 @@ pool:
 
 steps:
 - script: |
+    sudo apt-get remove -y nodejs
     curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
     sudo apt-get install -y nodejs
+
     node -v
-    npm install
+    npm -v
+
+    npm install --legacy-peer-deps
+
     export NODE_OPTIONS=--openssl-legacy-provider
+
     npm run build
-  displayName: 'Install Node 16 and Build'
+  displayName: 'Install Node 16 and Build React App'
