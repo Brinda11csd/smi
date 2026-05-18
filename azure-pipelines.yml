@@ -17,15 +17,13 @@ steps:
 
 - script: |
     node -v
-    npm cache clean --force
-  displayName: 'Clean Cache'
+    npm -v
+  displayName: 'Check Versions'
 
 - script: |
     npm install --legacy-peer-deps
   displayName: 'Install Dependencies'
 
 - script: |
-    export NODE_OPTIONS=--max_old_space_size=4096
-    export NODE_OPTIONS=--openssl-legacy-provider
-    CI=false npm run build
+    CI=false npm run build -- --openssl-legacy-provider
   displayName: 'Build React App'
